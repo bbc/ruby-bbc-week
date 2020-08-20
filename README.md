@@ -1,8 +1,13 @@
-# Bbc::Week
+# BBC::Week Ruby Gem
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/bbc/week`. To experiment with that code, run `bin/console` for an interactive prompt.
+Some BBC production teams plan their programming around week numbers, counting from the start of the year. Unfortunately this is different to the definition of an [ISO Week] or commercial week. The BBC publishes a programme week wall calendar to production staff, so that they can quickly identify the week number.
 
-TODO: Delete this and the text above, and describe your gem
+The rules for calculating the BBC week number are:
+- Weeks start with Saturday
+- Each week's year is the Gregorian year in which the Tuesday falls
+- The first week of the year always contains 4th January
+
+
 
 ## Installation
 
@@ -22,7 +27,39 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+After requiring `bbc-week`, two methods are added to the ruby [Date] class.
+
+Days are numbered from Saturday:
+
+| Number  | Day       |
+|---------|-----------|
+| 1       | Saturday  |
+| 2       | Sunday    |
+| 3       | Monday    |
+| 4       | Tuesday   |
+| 5       | Wednesday |
+| 6       | Thursday  |
+| 7       | Friday    |
+
+
+### Date.bbc_week(year, week, day)
+
+This class method creates a new [Date] object, based on a BBC year, week and day.
+
+### Date#bbc_week
+
+This instance method returns the BBC year, week and day as an array.
+
+
+### Example Console Session
+
+```ruby
+$ ./bin/console 
+irb(main):001:0> Date.today.bbc_week
+=> [2020, 33, 6]
+irb(main):002:0> Date.bbc_week(2020, 33, 6)
+=> #<Date: 2020-08-20 ((2459082j,0s,0n),+0s,2299161j)>
+```
 
 ## Development
 
@@ -32,9 +69,14 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/bbc-week.
+Bug reports and pull requests are welcome on GitHub at https://github.com/bbc/ruby-bbc-week.
 
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+
+
+[ISO Week]:  https://en.wikipedia.org/wiki/ISO_week_date
+[Date]:      https://ruby-doc.org/stdlib/libdoc/date/rdoc/Date.html
